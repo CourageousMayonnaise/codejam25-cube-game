@@ -1,52 +1,78 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Joel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Joel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style type="text/css">
-    html,
-    body {
-      background: pink;
-      margin: 0;
-      padding: 0;
-      font-family: sans-serif;
-    }
+    <style type="text/css">
+        html,
+        body {
+            /* The area in pink will not be visible in your final submission. */
+            background: pink;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
 
-    #captcha-container {
-      background: white;
-      width: 400px;
-      height: 300px;
-    }
+        #captcha-container {
+            background: white;
+            /*
+             * Your CAPTCHA must fit within the defined width and height.
+             * If it is larger, the excess will be cut off.
+             */
+            width: 400px;
+            height: 300px;
+          position: relative;
+        }
 
-    /* Your style here... */
-  </style>
+        #game {
+          width: 1600px;
+          height: 1200px;
+          transform: scale(0.25);
+          transform-origin: top left;
+        }
+
+        #instructions {
+          z-index: 100;
+          position: absolute;
+          font-size: 14px;
+          background: rgba(0,0,0,0.4);
+          text-align: center;
+          color: #fff;
+          font-family: sans-serif;
+        }
+
+        /* Your style here... */
+    </style>
 </head>
 
 <body>
-  <div id="captcha-container">
+<div id="captcha-container">
+    <div id="instructions">
+        Prove you are a human by building a house in Minecraft.
+    </div>
+
     <!-- Add your CAPTCHA here: -->
-    Hello world!
+    <iframe id="game" src="./inner_game.html" width="1600" height="1200" frameborder="0"></iframe>
+</div>
 
-    <!-- We've added a sample button. Feel free to remove it: -->
-    <button id="solve">
-      Solve!
-    </button>
-  </div>
-
-  <script type="text/javascript">
+<script type="text/javascript">
     (function(window, document){
-      // This is how you tell the parent window that the CAPTCHA was successful.
-      function captchaSuccess() {
-        window.top.postMessage("success", '*');
-      }
-      
-      // Your CAPTCHA code goes here, we've added a simple example below:
-      document.getElementById('solve')
-           .addEventListener('click', () => captchaSuccess());
+        /**
+         * Call this function when your CAPTCHA has been completed
+         *
+         * @return void
+         */
+        function complete() {
+            window.top.postMessage('complete', '*');
+        }
+
+
+
+        // Your code goes here...
 
     })(window, document);
-  </script>
+</script>
 </body>
 </html>
